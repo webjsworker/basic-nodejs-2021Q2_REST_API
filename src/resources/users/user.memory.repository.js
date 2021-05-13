@@ -5,12 +5,28 @@ const getAll = async () =>
      DB
 ;
 
-const getById = async id => DB.filter(el => el.id === id )[0];
+const getById = async id => {
+ const user = await  DB.filter(el => el.id === id )[0];
+
+ if(!user){
+   throw new Error (`The user with id: ${id} was not found`)
+ }
+ return user
+};
 
 const create = async user => {
  DB.push(user);
  return getById(user.id); 
 } 
 
-module.exports = { getAll, getById, create  };
+const deleteById = async id => {
+  const user = await  DB.filter(el => el.id === id )[0];
+  /* DB.push(user); */
+  const index = DB.indexOf(user); 
+  DB.splice(index, 1);
+  const message = ('The user has been deleted');
+  return message; 
+}
+
+module.exports = { getAll, getById, create, deleteById  };
 
