@@ -4,5 +4,13 @@ const getAll = async () =>
   // TODO: mock implementation. should be replaced during task development
      DB
 ;
-module.exports = { getAll };
+
+const getById = async id => DB.filter(el => el.id === id )[0];
+
+const create = async user => {
+ DB.push(user);
+ return getById(user.id); 
+} 
+
+module.exports = { getAll, getById, create  };
 
