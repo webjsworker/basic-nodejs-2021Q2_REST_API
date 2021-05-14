@@ -24,15 +24,15 @@ router.route('/').post(async (req, res) => {
   res.json(User.toResponse(user));
 });
 
-
+/// //////////////////////////////////////////////////
 router.route('/:id').put(async (req, res) => {
-  const user = await usersService.getById(req.params.id);
+   const user = await usersService.ChangeUser(req.params.id, req.body);
   res.json(User.toResponse(user));
-});
+  });
 
 
 router.route('/:id').delete(async (req, res) => {
- const message  = await usersService.ChangeUser(req.body);
+ const message  = await usersService.deleteById(req.params.id);
   
    res.send(message);
  });

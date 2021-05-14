@@ -21,17 +21,17 @@ const create = async user => {
 
 const deleteById = async id => {
   const user = await  DB.filter(el => el.id === id )[0];
-  /* DB.push(user); */
   const index = DB.indexOf(user); 
   DB.splice(index, 1);
   const message = ('The user has been deleted');
   return message; 
 }
 
-const ChangeUser = async id => {
-  /* console.log(NewUser); */
-  const user = await  DB.filter(el => el.id === id )[0];
-  return user
+const ChangeUser = async (id, body) => {
+   const user = await  DB.filter(el => el.id === id )[0];
+  const changeUser = Object.assign(user, body);
+  
+  return changeUser
 }
 
 
