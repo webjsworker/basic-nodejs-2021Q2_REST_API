@@ -28,5 +28,14 @@ const deleteById = async id => {
   return message; 
 }
 
-module.exports = { getAll, getById, create, deleteById  };
+const ChangeUser = async id => {
+  /* console.log(NewUser); */
+  const user = await  DB.filter(el => el.id === id )[0];
+  return user
+}
+
+
+
+
+module.exports = { getAll, getById, create, deleteById, ChangeUser  };
 

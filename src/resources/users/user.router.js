@@ -26,21 +26,13 @@ router.route('/').post(async (req, res) => {
 
 
 router.route('/:id').put(async (req, res) => {
- /*  const user = await usersService.getById(req.params.id); */
-  const user = await usersService.create(
-    new User ({
-      id: req.body.id,
-      login: req.body.login,
-      password: req.body.password,
-      name: req.body.name
-    })
-  );
+  const user = await usersService.getById(req.params.id);
   res.json(User.toResponse(user));
 });
 
 
 router.route('/:id').delete(async (req, res) => {
- const message  = await usersService.deleteById(req.params.id);
+ const message  = await usersService.ChangeUser(req.body);
   
    res.send(message);
  });
