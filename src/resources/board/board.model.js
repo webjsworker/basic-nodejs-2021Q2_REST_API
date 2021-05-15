@@ -4,15 +4,17 @@ class Board {
   constructor({
     id = uuid.v4(),
     title = 'string',
-    columns = [{  }]
-    
-  } = {}) {
+    columns = [{}]  
+      } = {}) 
+  {
     this.id = id;
     this.title = title;
-    this.columns = columns
-       
+    this.columns = columns;
+          
   }
-
+    /* static addTask(){
+        class Task {}
+    } */
   /* static toResponse(user) {
     const { id, name, login } = user;
     return { id, name, login };
