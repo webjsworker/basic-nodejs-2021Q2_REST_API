@@ -1,7 +1,8 @@
-/* const uuid = require('uuid'); */
+const uuid = require('uuid');
 
 class Task {
   constructor({
+    id = uuid.v4(),
     title = 'string',
     order = 0,
     description = 'string',
@@ -9,6 +10,7 @@ class Task {
     boardId = 'stringe',
     columnId = 'string'
   } = {}) {
+    this.id = id;
     this.title = title;
     this.order = order;
     this.description = description;
