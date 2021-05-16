@@ -21,7 +21,7 @@ router.route('/').post(async (req, res) => {
       name: req.body.name
     })
   );
-  res.json(User.toResponse(user));
+  res.status(201).json(User.toResponse(user));
 });
 
 /// //////////////////////////////////////////////////

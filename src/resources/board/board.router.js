@@ -16,7 +16,7 @@ router.route('/').post(async (req, res) => {
         
       })
     );
-    res.json(board);
+    res.status(201).json(board);
   });
 
 
@@ -26,15 +26,14 @@ router.route('/').post(async (req, res) => {
   });
 
   router.route('/:id').put(async (req, res) => {
-    /* const board = await boardService.changeBoard(req.params.id, req.body); */
-    const board = await boardService.getById(req.params.id);
-    res.json(board);
+     const board = await boardService.changeBoard(req.params.id, req.body);
+      res.json(board);
      });
 
      router.route('/:id').delete(async (req, res) => {
         const message  = await boardService.deleteById(req.params.id);
          
-          res.send(message);
+          res.status(201).json(message);
         });
 
 module.exports = router;

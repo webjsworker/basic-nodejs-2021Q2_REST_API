@@ -19,12 +19,17 @@ const getById = async id => {
     return board
    };
 
-   const changeBoard = async (id,/*  body */) => {
+   const changeBoard = async (id, body) => {
     const board = await  DBboard.filter(el => el.id === id )[0];
+   board.columns = body.columns;
+   board.title = body.title
+   /* board.title = body.title; */
+    /* const changboard = Object.assign(board, body); */
+    /* board.columns.push(body.columns[0]) */
    
      
    return board
- }
+   };
 
 
  const deleteById = async id => {

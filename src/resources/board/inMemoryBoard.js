@@ -1,5 +1,3 @@
-const Board = require('./board.model');
-
-const DBboard = [new Board()];
+const DBboard = [];
 
 module.exports = DBboard
