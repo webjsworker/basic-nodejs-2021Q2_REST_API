@@ -19,10 +19,10 @@ class Task {
     this.columnId = columnId;
   }
 
-  /* static toResponse(user) {
-    const { id, name, login } = user;
-    return { id, name, login };
-  } */
+  static toResponse(task) {
+    const { id, title, order, description, userId } = task;
+    return { id, title, order, description, userId };
+  }
 }
 
 module.exports = Task;

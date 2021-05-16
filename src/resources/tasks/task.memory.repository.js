@@ -1,16 +1,20 @@
 const DBTasks = require('./inMemoryTasks');
 
-const getAlltask = async () =>  
-  DBTasks;
+const getAlltask = async () =>  DBTasks;
+
+const create = async (task) => {
+  DBTasks.push(task)
+  return task;
+};
   
-  /* {
-    id = "string",
-    title =  "string",
-    order =  0,
-    description = "string",
-    userId =  "string"
-  } */
+const getById = async (id) => {
+  const task = await  DBTasks.filter(el => el.id === id )[0];
+return task
+};
+  
+
+ 
 
 
 
-module.exports = { getAlltask  };
+module.exports = { getAlltask, create, getById,    };

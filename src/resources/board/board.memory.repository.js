@@ -34,10 +34,14 @@ const getById = async id => {
 
  const deleteById = async id => {
     const board = await  DBboard.filter(el => el.id === id )[0];
+    
     const index = DBboard.indexOf(board); 
-    DBboard.splice(index, 1);
-    const message = ('The board has been deleted');
-    return message; 
+    
+     DBboard.splice(index, 1);
+    
+    /* const message = board; */
+
+    return DBboard; 
   }
 
 
