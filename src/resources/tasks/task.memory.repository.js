@@ -12,9 +12,14 @@ const getById = async (id) => {
 return task
 };
   
-
+/* const changetask = async (taskid, body) => {
+  const task = await  DBTasks.filter(el => el.id === taskid )[0];
+  const changetask = Object.assign(task, body);
+  
+  return changetask
+} */
  
 
 
 
-module.exports = { getAlltask, create, getById,    };
+module.exports = { getAlltask, create, getById,     };

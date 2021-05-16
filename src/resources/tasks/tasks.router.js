@@ -23,8 +23,8 @@ const taskService = require('./task.service');
     res.json(task);
   });
 
-  /* router.route('/:id').put(async (req, res) => {
-    const task = await taskService.changetask(req.params.id, req.body);
+  /* router.route('/:taskid').put(async (req, res) => {
+    const task = await taskService.changetask(req.params.id, req.params.taskid, req.body);
    res.json(task);
    }); */
  
