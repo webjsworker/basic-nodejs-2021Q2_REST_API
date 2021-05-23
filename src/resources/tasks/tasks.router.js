@@ -1,38 +1,43 @@
-const router = require('express').Router();
+const router = require('express').Router({mergeParams: true});
 const Task = require('./tasks.model');
-const taskService = require('./task.service');
+const tasksService = require('./tasks.service');
 
-/* router.route('/:id/task').get(async (req, res) => {
-    const task = await taskService.getAlltask();
-    res.json(task);
-  }); */
+router.route('/').get(async (req, res) => {
+  const tasks = await tasksService.getAll(req.params.boardId);
+  await res.json(tasks.map(Task.toResponse));
+});
 
-  router.route('/').get(async (req, res) => {
-    const task = await taskService.getAlltask();
-    res.json(task);
-  });
+router.route('/').post(async (req, res) => {
+  const boardbody = req.params.boardId
+  const {title, order, description, boardId, columnId, userId} = req.body
+  const taskObj = {
+    'title': title, 
+    'order': order, 
+    'description': description, 
+    'boardId': boardId || boardbody,
+    'columnId': columnId,
+    'userId': userId
+  }
+  const task = await tasksService.create(taskObj);
+  res.status(201).send(Task.toResponse(task));
+});
 
+router.route('/:id').get(async (req, res) => {
+  const task = await tasksService.getById(req.params.boardId, req.params.id);
+  if(!task) {
+    res.status(404).json()
+  }
+  res.status(200).send(task);
+});
 
-  router.route('/').post(async (req, res) => {
-     const task = await taskService.create(req.body);
-    res.status(201).json(Task.toResponse(task));
-  });
+router.route('/:id').delete(async (req, res) => {
+  await tasksService.deleteById(req.params.boardId, req.params.id)
+  res.sendStatus(200)
+});
 
-  router.route('/:id').get(async (req, res) => {
-    const task = await taskService.getById(req.params.id);
-    res.json(task);
-  });
+router.route('/:id').put(async (req, res) => {
+  const task = await tasksService.change(req.params.boardId,req.params.id,req.body);
+  res.status(200).send(task);
+});
 
-  /* router.route('/:taskid').put(async (req, res) => {
-    const task = await taskService.changetask(req.params.id, req.params.taskid, req.body);
-   res.json(task);
-   }); */
- 
-
-   /* router.route('/:id').delete(async (req, res) => {
-    const task  = await taskService.deleteById(req.params.id);
-     
-      res.json(task);
-    }); */
-
-  module.exports = router;
+module.exports = router;

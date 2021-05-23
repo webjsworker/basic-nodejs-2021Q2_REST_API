@@ -1,41 +1,34 @@
-const DB = require('./inMemoryDb.js');
+// const User = require('./user.model')
+const DBTASK = require('../tasks/tasks.memory.repository')
+/* const DBUsers = require('./inMemoryUser') */
 
-const getAll = async () =>  
-  // TODO: mock implementation. should be replaced during task development
-     DB
-;
+let DBUsers = []
+
+const getAll = () => DBUsers;
 
 const getById = async id => {
- const user = await  DB.filter(el => el.id === id )[0];
+  const user = await DBUsers.filter(us => us.id === id)
+  return user[0]
+}
 
- if(!user){
-   throw new Error (`The user with id: ${id} was not found`)
- }
- return user
-};
-
-const create = async user => {
- DB.push(user);
- return getById(user.id); 
-} 
+const creat = async user => {
+  DBUsers = [...DBUsers, user]
+  return user
+}
 
 const deleteById = async id => {
-  const user = await  DB.filter(el => el.id === id )[0];
-  const index = DB.indexOf(user); 
-  DB.splice(index, 1);
-  const message = ('The user has been deleted');
-  return message; 
+  DBUsers = await DBUsers.filter(us => us.id !== id)
+  DBTASK.deleteUserTasks(id)
 }
 
-const ChangeUser = async (id, body) => {
-   const user = await  DB.filter(el => el.id === id )[0];
-  const changeUser = Object.assign(user, body);
-  
-  return changeUser
+const change = async (id, user) => {
+  DBUsers = DBUsers.map(o => {
+    if (o.id === id) {
+      return {id, ...user};
+    }
+    return o
+  })
+  return getById(id)
 }
 
-
-
-
-module.exports = { getAll, getById, create, deleteById, ChangeUser  };
-
+module.exports = { getAll, getById, creat, deleteById, change };
