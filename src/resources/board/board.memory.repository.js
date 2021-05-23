@@ -1,48 +1,33 @@
-const DBboard = require('./inMemoryBoard.js');
+// const Board = require('./boards.model')
+const DBTASK = require('../tasks/tasks.memory.repository')
 
-const getAllBoard = async () =>  
-  // TODO: mock implementation. should be replaced during task development
-  DBboard
-;
+let DBBoards = []
 
-const creat = async board =>  {
-   DBboard.push(board);
-    return board;     
-}
+const getAll = () => DBBoards;
 
 const getById = async id => {
-    const board = await  DBboard.filter(el => el.id === id )[0];
-   
-    if(!board){
-      throw new Error (`The board with id: ${id} was not found`)
+  const board = await DBBoards.filter(bd => bd.id === id)
+  return board[0]
+}
+
+const creat = async board => {
+  DBBoards = [...DBBoards, board]
+  return board
+}
+
+const deleteById = async id => {
+  DBBoards = await DBBoards.filter(bd => bd.id !== id)
+  DBTASK.deleteTasksBoard(id)
+}
+
+const change = async (id, board) => {
+  DBBoards = DBBoards.map(obj => {
+    if (obj.id === id) {
+      return {id, ...board};
     }
-    return board
-   };
+    return obj
+  })
+  return getById(id)
+}
 
-   const changeBoard = async (id, body) => {
-    const board = await  DBboard.filter(el => el.id === id )[0];
-   board.columns = body.columns;
-   board.title = body.title
-   /* board.title = body.title; */
-    /* const changboard = Object.assign(board, body); */
-    /* board.columns.push(body.columns[0]) */
-   
-     
-   return board
-   };
-
-
- const deleteById = async id => {
-    const board = await  DBboard.filter(el => el.id === id )[0];
-    
-    const index = DBboard.indexOf(board); 
-    
-     DBboard.splice(index, 1);
-    
-    /* const message = board; */
-
-    return DBboard; 
-  }
-
-
-module.exports = {getAllBoard, creat, getById , changeBoard, deleteById } ;
+module.exports = { getAll, getById, creat, deleteById, change };
