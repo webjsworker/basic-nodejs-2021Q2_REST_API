@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Task 4  JSdoc</title>
+    <title>JSDoc: Source: tasks/tasks.model.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,64 @@
 
 <div id="main">
 
-    <h1 class="page-title">Task 4  JSdoc</h1>
+    <h1 class="page-title">Source: tasks/tasks.model.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { v4: uuidv4 } = require('uuid');
 
+/**
+ * This is class of task
+ * @class
+ */
+class Task {
+  /**
+   * 
+   * @param {string} id - task's id 
+   * @param {string} title - task's title  
+   * @param {namber} order - task's order  
+   * @param {string} descroption - task's description
+   * @param {sring} userId - user's id 
+   * @param {string} boardId - board's id 
+   * @param {string} columnId - column id 
+   */
+  constructor({
+    id = uuidv4(),
+    title = 'TASK',
+    order = 0,
+    description = "TASK",
+    userId = 'userId',
+    boardId = 'boardId',
+    columnId = 'columnId'
+  } = {}) {
+    this.id = id;
+    this.title = title;
+    this.order = order;
+    this.description = description;
+    this.userId = userId;
+    this.boardId = boardId;
+    this.columnId = columnId;
+  }
+/**
+ * This function retern task's elemets
+ * @param {object} task - tasks elemets 
+ * @returns {object} - object of task 
+ */
+  static toResponse(task) {
+    const {id, title, order, description, userId, boardId, columnId} = task
+    return {id, title, order, description, userId, boardId, columnId}
+  }
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+}
+module.exports = Task;
+</code></pre>
+        </article>
+    </section>
 
 
 
