@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Task 4  JSdoc</title>
+    <title>JSDoc: Source: user.service.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,51 @@
 
 <div id="main">
 
-    <h1 class="page-title">Task 4  JSdoc</h1>
+    <h1 class="page-title">Source: user.service.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const usersRepo = require('./user.memory.repository');
+const User = require('./user.model')
+/**
+ * User controller - function retern all users
+ * @returns {array} - array all users.
+ */
+const getAll = () => usersRepo.getAll();
+/**
+ * This function retern user by id
+ * @param {string} id - user's id 
+ * @returns {object} - object of user 
+ */
+const getById = id => usersRepo.getById(id);
+/**
+ * This function create new user 
+ * @param {object} user - object of user 
+ * @returns {object} - crated user 
+ */
+const creat = user => usersRepo.creat(new User(user))
+/**
+ * 
+ * @param {string} id = user's id 
+ */
+const deleteById = id => usersRepo.deleteById(id)
+/**
+ * This function change user's date
+ * @param {string} id - user's id 
+ * @param {object} user - new user's date 
+ * @returns {object} - changed user
+ */
+const change = (id, user) => usersRepo.change(id, user)
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports = { getAll, getById, deleteById, creat, change};
+</code></pre>
+        </article>
+    </section>
 
 
 

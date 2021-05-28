@@ -46,6 +46,7 @@ const deleteById = async id => {
  * Function chande user by id
  * @param {string} id - user id  
  * @param {object} user - user data  
+ * @param {object} el - elemen og user
  * @returns {object} changed user
  */
 const change = async (id, user) => {
