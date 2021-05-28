@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: tasks/tasks.service.js</title>
+    <title>JSDoc: Source: boards/boards.service.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: tasks/tasks.service.js</h1>
+    <h1 class="page-title">Source: boards/boards.service.js</h1>
 
     
 
@@ -26,44 +26,41 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const tasksRepo = require('./tasks.memory.repository');
-const Task = require('./tasks.model')
+            <pre class="prettyprint source linenums"><code>const boardsRepo = require('./boards.memory.repository');
+const Board = require('./boards.model')
 
 /**
- * This function retern all task 
- * @param {string} boardId - board's id  
- * @returns {object} - object of task
+ * This function retuens all boards
+ * @returns {object} - object of boards
  */
-const getAll = (boardId) => tasksRepo.getAll(boardId);
+const getAll = () => boardsRepo.getAll();
 /**
- * This function retern task by id 
- * @param {string} boardId - board id 
- * @param {string} id - task id  
- * @returns {object} - object of task
+ * This function delete board by id 
+ * @param {string} id - board's id 
+ * @returns {object} - object of board 
  */
-const getById = (boardId, id) => tasksRepo.getById(boardId, id);
+const deleteById = id => boardsRepo.deleteById(id)
 /**
- * This function change tsk
- * @param {object} task - object of task 
- * @returns {object} - changed object of task
+ * This function returns board by id 
+ * @param {string} id - board's id
+ * @returns {object} - object of board 
  */
-const create = (task) => tasksRepo.create(new Task(task))
+const getById = id => boardsRepo.getById(id);
 /**
- * This function delete task by id 
- * @param {string} boardId - board's id 
- * @param {string} id - task's id 
+ * This function change board
+ * @param {string} id - board's id  
+ * @param {object} board - object of board
+ * @returns {object} - changed board 
  */
-const deleteById = (boardId, id) => tasksRepo.deleteById(boardId, id)
+const change = (id, board) => boardsRepo.change(id, board)
 /**
- * 
- * @param {string} boardId - board's id
- * @param {string} id - task's id 
- * @param {object} task - object of task 
- * @returns {object} - changed task 
+ * This function creat new board
+ * @param {object} board - object of board
+ * @returns {object} - object created board 
  */
-const change = (boardId, id, task) => tasksRepo.change(boardId, id, task)
+const creat = board => boardsRepo.creat(new Board(board))
 
-module.exports = { getAll, getById, deleteById, create, change};
+module.exports = { getAll, getById, deleteById, creat, change};
 </code></pre>
         </article>
     </section>

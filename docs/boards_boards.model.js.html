@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: tasks/tasks.service.js</title>
+    <title>JSDoc: Source: boards/boards.model.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: tasks/tasks.service.js</h1>
+    <h1 class="page-title">Source: boards/boards.model.js</h1>
 
     
 
@@ -26,44 +26,53 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const tasksRepo = require('./tasks.memory.repository');
-const Task = require('./tasks.model')
+            <pre class="prettyprint source linenums"><code>const { v4: uuidv4 } = require('uuid');
+const Сolumn = require('./column.model')
 
 /**
- * This function retern all task 
- * @param {string} boardId - board's id  
- * @returns {object} - object of task
+ * this function creat column
+ * @param {object} option - object of column 
+ * @returns {object} - object of column
  */
-const getAll = (boardId) => tasksRepo.getAll(boardId);
+function createColumn(option) {
+  const column = []
+  for(let i=0; i &lt; option.length; i +=1) {
+    column.push(new Сolumn(option[i]))
+  }
+  return column
+}
+
 /**
- * This function retern task by id 
- * @param {string} boardId - board id 
- * @param {string} id - task id  
- * @returns {object} - object of task
+ * @class
  */
-const getById = (boardId, id) => tasksRepo.getById(boardId, id);
-/**
- * This function change tsk
- * @param {object} task - object of task 
- * @returns {object} - changed object of task
- */
-const create = (task) => tasksRepo.create(new Task(task))
-/**
- * This function delete task by id 
- * @param {string} boardId - board's id 
- * @param {string} id - task's id 
- */
-const deleteById = (boardId, id) => tasksRepo.deleteById(boardId, id)
+class Board {
+  /**
+   * 
+   * @param {string} id - board's id 
+   * @param {string} title - title of board
+   * @param {object} columns - column's object 
+   */
+  constructor({
+    id = uuidv4(),
+    title = 'BOARD',
+    columns = []
+  } = {}) {
+    this.id = id;
+    this.title = title;
+    this.columns = createColumn(columns)
+  }
+
 /**
  * 
- * @param {string} boardId - board's id
- * @param {string} id - task's id 
- * @param {object} task - object of task 
- * @returns {object} - changed task 
+ * @param {object} board - object of board
+ * @returns {object} - object of board to response
  */
-const change = (boardId, id, task) => tasksRepo.change(boardId, id, task)
-
-module.exports = { getAll, getById, deleteById, create, change};
+  static toResponse(board) {
+    const {id, title, columns} = board
+    return {id, title, columns}
+  }
+}
+module.exports = Board;
 </code></pre>
         </article>
     </section>

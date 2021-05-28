@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: tasks/tasks.service.js</title>
+    <title>JSDoc: Source: boards/column.model.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: tasks/tasks.service.js</h1>
+    <h1 class="page-title">Source: boards/column.model.js</h1>
 
     
 
@@ -26,45 +26,30 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const tasksRepo = require('./tasks.memory.repository');
-const Task = require('./tasks.model')
+            <pre class="prettyprint source linenums"><code>const { v4: uuidv4 } = require('uuid');
+/**
+ * Calss of column
+ * @class
+ */
+class Сolumn {
+  /**
+   * 
+   * @param {string} id - column's id
+   * @param {string} title - title of board
+   * @param {namber} order - namber of order 
+   */
+  constructor({
+    id = uuidv4(),
+    title = 'BOARD',
+    order = 0
+  } = {}) {
+    this.id = id;
+    this.title = title;
+    this.order = order
+  }
+}
 
-/**
- * This function retern all task 
- * @param {string} boardId - board's id  
- * @returns {object} - object of task
- */
-const getAll = (boardId) => tasksRepo.getAll(boardId);
-/**
- * This function retern task by id 
- * @param {string} boardId - board id 
- * @param {string} id - task id  
- * @returns {object} - object of task
- */
-const getById = (boardId, id) => tasksRepo.getById(boardId, id);
-/**
- * This function change tsk
- * @param {object} task - object of task 
- * @returns {object} - changed object of task
- */
-const create = (task) => tasksRepo.create(new Task(task))
-/**
- * This function delete task by id 
- * @param {string} boardId - board's id 
- * @param {string} id - task's id 
- */
-const deleteById = (boardId, id) => tasksRepo.deleteById(boardId, id)
-/**
- * 
- * @param {string} boardId - board's id
- * @param {string} id - task's id 
- * @param {object} task - object of task 
- * @returns {object} - changed task 
- */
-const change = (boardId, id, task) => tasksRepo.change(boardId, id, task)
-
-module.exports = { getAll, getById, deleteById, create, change};
-</code></pre>
+module.exports = Сolumn;</code></pre>
         </article>
     </section>
 

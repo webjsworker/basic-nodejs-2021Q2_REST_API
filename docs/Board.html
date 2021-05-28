@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: User</title>
+    <title>JSDoc: Class: Board</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: User</h1>
+    <h1 class="page-title">Class: Board</h1>
 
     
 
@@ -28,9 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>User<span class="signature">(id, name, login, password)</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description"><p>This is class of user</p></div>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Board<span class="signature">(id, title, columns)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,11 +39,9 @@
         
 
     
-    <h2>Constructor</h2>
-    
 
     
-    <h4 class="name" id="User"><span class="type-signature"></span>new User<span class="signature">(id, name, login, password)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Board"><span class="type-signature"></span>new Board<span class="signature">(id, title, columns)</span><span class="type-signature"></span></h4>
     
 
     
@@ -101,14 +97,14 @@
 
             
 
-            <td class="description last"><p>user's id</p></td>
+            <td class="description last"><p>board's id</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>title</code></td>
             
 
             <td class="type">
@@ -124,20 +120,20 @@
 
             
 
-            <td class="description last"><p>user's name</p></td>
+            <td class="description last"><p>title of board</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>login</code></td>
+                <td class="name"><code>columns</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
             
@@ -147,30 +143,7 @@
 
             
 
-            <td class="description last"><p>user's login</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>password</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>user's password</p></td>
+            <td class="description last"><p>column's object</p></td>
         </tr>
 
     
@@ -211,7 +184,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="users_user.model.js.html">users/user.model.js</a>, <a href="users_user.model.js.html#line6">line 6</a>
+        <a href="boards_boards.model.js.html">boards/boards.model.js</a>, <a href="boards_boards.model.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -267,16 +240,12 @@
     
 
     
-    <h4 class="name" id=".ReqBody"><span class="type-signature">(static) </span>ReqBody<span class="signature">(user)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id=".toResponse"><span class="type-signature">(static) </span>toResponse<span class="signature">(board)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
 
 
-
-<div class="description">
-    <p>Function delet password</p>
-</div>
 
 
 
@@ -311,7 +280,7 @@
 
         <tr>
             
-                <td class="name"><code>user</code></td>
+                <td class="name"><code>board</code></td>
             
 
             <td class="type">
@@ -327,7 +296,7 @@
 
             
 
-            <td class="description last"><p>user</p></td>
+            <td class="description last"><p>object of board</p></td>
         </tr>
 
     
@@ -368,7 +337,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="users_user.model.js.html">users/user.model.js</a>, <a href="users_user.model.js.html#line41">line 41</a>
+        <a href="boards_boards.model.js.html">boards/boards.model.js</a>, <a href="boards_boards.model.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
@@ -398,7 +367,7 @@
         
 <div class="param-desc">
     <ul>
-<li>some paramets</li>
+<li>object of board to response</li>
 </ul>
 </div>
 
@@ -410,164 +379,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".toResponse"><span class="type-signature">(static) </span>toResponse<span class="signature">(user)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>user</code></td>
-            
-
-            <td class="type">
-            
-                
 <span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>user</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="users_user.model.js.html">users/user.model.js</a>, <a href="users_user.model.js.html#line31">line 31</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <ul>
-<li>some parametrs</li>
-</ul>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
 
 
     </dd>

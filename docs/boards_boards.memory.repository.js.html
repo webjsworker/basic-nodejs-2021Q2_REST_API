@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: tasks/tasks.service.js</title>
+    <title>JSDoc: Source: boards/boards.memory.repository.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: tasks/tasks.service.js</h1>
+    <h1 class="page-title">Source: boards/boards.memory.repository.js</h1>
 
     
 
@@ -26,44 +26,63 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const tasksRepo = require('./tasks.memory.repository');
-const Task = require('./tasks.model')
+            <pre class="prettyprint source linenums"><code>// const Board = require('./boards.model')
+const DBTASK = require('../tasks/tasks.memory.repository')
 
 /**
- * This function retern all task 
- * @param {string} boardId - board's id  
- * @returns {object} - object of task
+ * Array of board
+ * @type {Array}
  */
-const getAll = (boardId) => tasksRepo.getAll(boardId);
+let DBBoards = []
+
+/** This function returns all board
+ * @returns {object} - object all board
+ */
+const getAll = () => DBBoards;
+
 /**
- * This function retern task by id 
- * @param {string} boardId - board id 
- * @param {string} id - task id  
- * @returns {object} - object of task
+ * This function retutns board by id  
+ * @param {string} id - board's id 
+ * @returns {object} - object of board 
  */
-const getById = (boardId, id) => tasksRepo.getById(boardId, id);
+const getById = async id => {
+  const board = await DBBoards.filter(bd => bd.id === id)
+  return board[0]
+}
 /**
- * This function change tsk
- * @param {object} task - object of task 
- * @returns {object} - changed object of task
+ * This function returns created board
+ * @param {object} board - object of board 
+ * @returns {object} - object of created board
  */
-const create = (task) => tasksRepo.create(new Task(task))
+const creat = async board => {
+  DBBoards = [...DBBoards, board]
+  return board
+}
 /**
- * This function delete task by id 
- * @param {string} boardId - board's id 
- * @param {string} id - task's id 
+ * This function delete board by id 
+ * @param {string} id - board's id  
  */
-const deleteById = (boardId, id) => tasksRepo.deleteById(boardId, id)
+const deleteById = async id => {
+  DBBoards = await DBBoards.filter(bd => bd.id !== id)
+  DBTASK.deleteTasksBoard(id)
+}
 /**
  * 
- * @param {string} boardId - board's id
- * @param {string} id - task's id 
- * @param {object} task - object of task 
- * @returns {object} - changed task 
+ * @param {string} id - board's id  
+ * @param {object} board - board's object
+ * @param {id} - object include all boards 
  */
-const change = (boardId, id, task) => tasksRepo.change(boardId, id, task)
+const change = async (id, board) => {
+  DBBoards = DBBoards.map(obj => {
+    if (obj.id === id) {
+      return {id, ...board};
+    }
+    return obj
+  })
+  return getById(id)
+}
 
-module.exports = { getAll, getById, deleteById, create, change};
+module.exports = { getAll, getById, creat, deleteById, change };
 </code></pre>
         </article>
     </section>
