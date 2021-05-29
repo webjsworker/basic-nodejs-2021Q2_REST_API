@@ -4,6 +4,6 @@
  *  @type {(string|Array.)} */ 
 
 /* const BD: Array<String> = []; */
-const BD = [];
+/* const BD: string  = []; */
 
-module.exports = BD 
+/* module.exports = BD  */

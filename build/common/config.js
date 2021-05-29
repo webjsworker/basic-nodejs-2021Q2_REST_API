@@ -1,5 +1,6 @@
-var dotenv = require('dotenv');
-var path = require('path');
+"use strict";
+const dotenv = require('dotenv');
+const path = require('path');
 dotenv.config({
     path: path.join(__dirname, '../../.env')
 });
