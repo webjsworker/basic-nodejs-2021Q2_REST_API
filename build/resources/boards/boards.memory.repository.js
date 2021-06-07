@@ -1,54 +1,31 @@
 "use strict";
-// const Board = require('./boards.model')
-const DBTASK = require('../tasks/tasks.memory.repository');
-/**
- * Array of board
- * @type {Array}
- */
+Object.defineProperty(exports, "__esModule", { value: true });
+const Board = require('./boards.model.ts');
+const DBTASK = require('../tasks/tasks.memory.repository.ts');
 let DBBoards = [];
-/** This function returns all board
- * @returns {object} - object all board
- */
-const getAll = () => DBBoards;
-/**
- * This function retutns board by id
- * @param {string} id - board's id
- * @returns {object} - object of board
- */
+const getAll = async () => DBBoards;
 const getById = async (id) => {
-    const board = await DBBoards.filter(bd => bd.id === id);
-    return board[0];
-};
-/**
- * This function returns created board
- * @param {object} board - object of board
- * @returns {object} - object of created board
- */
-const creat = async (board) => {
-    DBBoards = [...DBBoards, board];
+    const board = await DBBoards.filter(bd => bd.id === id)[0];
     return board;
 };
-/**
- * This function delete board by id
- * @param {string} id - board's id
- */
-const deleteById = async (id) => {
-    DBBoards = await DBBoards.filter(bd => bd.id !== id);
-    DBTASK.deleteTasksBoard(id);
+const create = async (board) => {
+    const newBoard = new Board(board);
+    DBBoards = [...DBBoards, newBoard];
+    return newBoard;
 };
-/**
- *
- * @param {string} id - board's id
- * @param {object} board - board's object
- * @param {id} - object include all boards
- */
-const change = async (id, board) => {
-    DBBoards = DBBoards.map(obj => {
-        if (obj.id === id) {
-            return { id, ...board };
+const change = async (id, boardUp) => {
+    DBBoards = DBBoards.map(board => {
+        if (board.id === id) {
+            return { ...board, ...boardUp };
         }
-        return obj;
+        return board;
     });
     return getById(id);
 };
-module.exports = { getAll, getById, creat, deleteById, change };
+const deleteById = async (id) => {
+    const delBoard = getById(id);
+    DBBoards = await DBBoards.filter(board => board.id !== id);
+    DBTASK.deleteTasksBoard(id);
+    return delBoard;
+};
+module.exports = { getAll, getById, create, deleteById, change };
