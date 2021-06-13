@@ -12,7 +12,7 @@ $ docker build . -t app/express
 ```
 Run:
 ```
-docker run node/express
+$ docker run node/express
 ```
 Build and run an image as a container. This will take a few minutes.
 Build 
