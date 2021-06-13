@@ -1,3 +1,38 @@
+## Docker 
+This page contains simple instructions on how to get run App with Docker.
+# Getting Started
+Run containers node and postgres :
+```
+$ docker-compose up
+```
+Build and run an image as a container. This will take a few minutes.
+Build:
+```
+$ docker build . -t app/express
+```
+Run:
+```
+$ docker run node/express
+```
+Build and run an image as a container. This will take a few minutes.
+Build 
+```
+$ docker build . -t app/postgres
+```
+Run
+```
+$ docker run app/postgres
+```
+If you want to see all images, you can do it with : 
+```
+$ docker images
+```
+Run the image's default command, which should start everything up. The -p option forwards the container's port 8080 to port 8080 on the host. 
+```
+docker run -p="8000:8080" my-app
+```
+
+
 # RS School REST service
 
 ## Prerequisites
