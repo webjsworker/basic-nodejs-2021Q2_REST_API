@@ -1,3 +1,22 @@
+## Docker 
+Старт контейнеров node и postgres :
+> $ docker-compose up
+
+Сборка контейнера node
+> $ docker build . -t app/express
+Старт имеджа
+> docker run node/express
+
+Сборка конетйнера postgres
+> $ docker build . -t app/postgres
+Запуска контейнера posthres
+> docker run app/postgres
+
+Просмотр имеджей
+> docker images
+
+
+
 # RS School REST service
 
 ## Prerequisites
