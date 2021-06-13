@@ -1,18 +1,19 @@
 ## Docker 
-Старт контейнеров node и postgres :
+This page contains simple instructions on how to get run App with Docker.
+# Getting Started
+Run containers node and postgres :
 > $ docker-compose up
-
-Сборка контейнера node
+Build and run an image as a container. This will take a few minutes.
+Build:
 > $ docker build . -t app/express
-Старт имеджа
+Run:
 > docker run node/express
-
-Сборка конетйнера postgres
+Build and run an image as a container. This will take a few minutes.
+Build 
 > $ docker build . -t app/postgres
-Запуска контейнера posthres
+Run
 > docker run app/postgres
-
-Просмотр имеджей
+If you want to see all images, you can do it with : 
 > docker images
 
 
