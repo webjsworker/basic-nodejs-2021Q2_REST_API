@@ -2,19 +2,31 @@
 This page contains simple instructions on how to get run App with Docker.
 # Getting Started
 Run containers node and postgres :
-> $ docker-compose up
+```
+$ docker-compose up
+```
 Build and run an image as a container. This will take a few minutes.
 Build:
-> $ docker build . -t app/express
+```
+$ docker build . -t app/express
+```
 Run:
-> docker run node/express
+```
+docker run node/express
+```
 Build and run an image as a container. This will take a few minutes.
 Build 
-> $ docker build . -t app/postgres
+```
+$ docker build . -t app/postgres
+```
 Run
-> docker run app/postgres
+```
+$ docker run app/postgres
+```
 If you want to see all images, you can do it with : 
-> docker images
+```
+$ docker images
+```
 
 
 
