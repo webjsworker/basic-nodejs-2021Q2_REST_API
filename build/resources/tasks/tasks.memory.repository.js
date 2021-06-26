@@ -51,75 +51,106 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
     return to;
 };
 var _this = this;
-var DBTASK = require('../tasks/tasks.memory.repository');
+// const Task = require('./tasks.model')
 /**
- * Array of users
+ * It's task's array
  * @type {Array}
  */
-var DBUsers = [];
+var DBTasks = [];
 /**
- * Function getAll users
- * @returns array of users.
+ * This function retern task by board's id
+ * @param {string} boardId - board's id
+ * @returns {object} - object of task
  */
-var getAll = function () { return DBUsers; };
+var getAll = function (boardId) { return DBTasks.filter(function (all) { return all.boardId === boardId; }); };
 /**
- *
- * @param {string} id - id of user
- * @returns {object} - user
+ * This function retern task by id fron board
+ * @param {string} boardId - board's id
+ * @param {string} id - tsk's id
+ * @returns {object} - object of task
  */
-var getById = function (id) { return __awaiter(_this, void 0, void 0, function () {
-    var user;
+var getById = function (boardId, id) { return __awaiter(_this, void 0, void 0, function () {
+    var task;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, DBUsers.filter(function (us) { return us.id === id; })];
+            case 0: return [4 /*yield*/, DBTasks.find(function (ts) { return ts.boardId === boardId && ts.id === id; })];
             case 1:
-                user = _a.sent();
-                return [2 /*return*/, user[0]];
+                task = _a.sent();
+                return [2 /*return*/, task];
         }
     });
 }); };
 /**
- *
- * @param {object} user - user for create
- * @returns {object} created user
+ * This function crate new task
+ * @param {object} task - Object of task
+ * @returns {object} - object of task
  */
-var creat = function (user) { return __awaiter(_this, void 0, void 0, function () {
+var create = function (task) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        DBUsers = __spreadArray(__spreadArray([], DBUsers), [user]);
-        return [2 /*return*/, user];
+        DBTasks = __spreadArray(__spreadArray([], DBTasks), [task]);
+        return [2 /*return*/, task];
     });
 }); };
 /**
- * function delete user by id
- * @param {string} id - id of user
- *
+ * This function delete task by id from board
+ * @param {string} boardId - board's id
+ * @param {string} id - task id
  */
-var deleteById = function (id) { return __awaiter(_this, void 0, void 0, function () {
+var deleteById = function (boardId, id) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, DBUsers.filter(function (el) { return el.id !== id; })];
+            case 0: return [4 /*yield*/, DBTasks.filter(function (ts) { return ts.id !== id && ts.boardId === boardId; })];
             case 1:
-                DBUsers = _a.sent();
-                DBTASK.deleteUserTasks(id);
+                DBTasks = _a.sent();
                 return [2 /*return*/];
         }
     });
 }); };
 /**
- * Function chande user by id
- * @param {string} id - user id
- * @param {object} user - user data
- * @returns {object} changed user
+ * This function delet task with board id
+ * @param {string} boardId board id
  */
-var change = function (id, user) { return __awaiter(_this, void 0, void 0, function () {
+var deleteTasksBoard = function (boardId) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        DBUsers = DBUsers.map(function (el) {
-            if (el.id === id) {
-                return __assign({ id: id }, user);
-            }
-            return el;
-        });
-        return [2 /*return*/, getById(id)];
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, DBTasks.filter(function (ts) { return ts.boardId !== boardId; })];
+            case 1:
+                DBTasks = _a.sent();
+                return [2 /*return*/];
+        }
     });
 }); };
-module.exports = { getAll: getAll, getById: getById, creat: creat, deleteById: deleteById, change: change };
+/**
+ * This function delete user's task
+ * @param {string} userId - user id
+ * @param {Array} tasksArray - Array of task
+ * @returns {object} - object task without user's task
+ */
+var deleteUserTasks = function (userId) {
+    DBTasks = DBTasks.map(function (tasksArray) {
+        if (tasksArray.userId === userId) {
+            return __assign(__assign({}, tasksArray), { userId: null });
+        }
+        return tasksArray;
+    });
+};
+/**
+ *
+ * @param {string} boardId - board id
+ * @param {string} id - task's id
+ * @param {object} task - Object task with new date
+ * @param {Array} tasksArray - Array of task
+ * @returns {object} - new created task
+ */
+var change = function (boardId, id, task) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        DBTasks = DBTasks.map(function (tasksArray) {
+            if (tasksArray.id === id && tasksArray.boardId === boardId) {
+                return __assign({ id: id }, task);
+            }
+            return tasksArray;
+        });
+        return [2 /*return*/, getById(boardId, id)];
+    });
+}); };
+module.exports = { getAll: getAll, getById: getById, create: create, deleteById: deleteById, change: change, deleteTasksBoard: deleteTasksBoard, deleteUserTasks: deleteUserTasks };

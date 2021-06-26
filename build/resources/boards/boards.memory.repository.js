@@ -1,3 +1,14 @@
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,79 +45,80 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+};
 var _this = this;
-var router = require('express').Router();
-var User = require('./user.model');
-var usersService = require('./user.service');
-// get all USers
-router.route('/').get(function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var users;
+// const Board = require('./boards.model')
+var DBTASK = require('../tasks/tasks.memory.repository');
+/**
+ * Array of board
+ * @type {Array}
+ */
+var DBBoards = [];
+/** This function returns all board
+ * @returns {object} - object all board
+ */
+var getAll = function () { return DBBoards; };
+/**
+ * This function retutns board by id
+ * @param {string} id - board's id
+ * @returns {object} - object of board
+ */
+var getById = function (id) { return __awaiter(_this, void 0, void 0, function () {
+    var board;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, usersService.getAll()];
+            case 0: return [4 /*yield*/, DBBoards.filter(function (bd) { return bd.id === id; })];
             case 1:
-                users = _a.sent();
-                return [4 /*yield*/, res.json(users.map(User.toResponse))];
-            case 2:
-                _a.sent();
+                board = _a.sent();
+                return [2 /*return*/, board[0]];
+        }
+    });
+}); };
+/**
+ * This function returns created board
+ * @param {object} board - object of board
+ * @returns {object} - object of created board
+ */
+var creat = function (board) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        DBBoards = __spreadArray(__spreadArray([], DBBoards), [board]);
+        return [2 /*return*/, board];
+    });
+}); };
+/**
+ * This function delete board by id
+ * @param {string} id - board's id
+ */
+var deleteById = function (id) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, DBBoards.filter(function (bd) { return bd.id !== id; })];
+            case 1:
+                DBBoards = _a.sent();
+                DBTASK.deleteTasksBoard(id);
                 return [2 /*return*/];
         }
     });
-}); });
-// Get user by Id 
-router.route('/:id').get(function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var user;
+}); };
+/**
+ *
+ * @param {string} id - board's id
+ * @param {object} board - board's object
+ * @param {id} - object include all boards
+ */
+var change = function (id, board) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, usersService.getById(req.params.id)];
-            case 1:
-                user = _a.sent();
-                if (!user) {
-                    res.status(404);
-                }
-                res.status(200).send(User.toResponse(user));
-                return [2 /*return*/];
-        }
+        DBBoards = DBBoards.map(function (obj) {
+            if (obj.id === id) {
+                return __assign({ id: id }, board);
+            }
+            return obj;
+        });
+        return [2 /*return*/, getById(id)];
     });
-}); });
-// Delet user by Id
-router.route('/:id').delete(function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, usersService.deleteById(req.params.id)];
-            case 1:
-                _a.sent();
-                res.sendStatus(200);
-                return [2 /*return*/];
-        }
-    });
-}); });
-/// create new user
-router.route('/').post(function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var user;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, usersService.creat(User.ReqBody(req.body))];
-            case 1:
-                user = _a.sent();
-                res.status(201).send(User.toResponse(user));
-                return [2 /*return*/];
-        }
-    });
-}); });
-router.route('/:id').put(function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var user;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, usersService.change(req.params.id, User.ReqBody(req.body))];
-            case 1:
-                user = _a.sent();
-                if (!user) {
-                    res.status(404);
-                }
-                res.status(200).send(User.toResponse(user));
-                return [2 /*return*/];
-        }
-    });
-}); });
-module.exports = router;
+}); };
+module.exports = { getAll: getAll, getById: getById, creat: creat, deleteById: deleteById, change: change };

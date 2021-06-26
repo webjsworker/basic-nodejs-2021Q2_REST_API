@@ -4,6 +4,10 @@ const { v4: uuidv4 } = require('uuid');
  * @class
  */
 class User {
+  id = uuidv4();
+  name = 'USER';
+  login = 'user';
+  password = 'P@55w0rd'
   /**
    * 
    * @param {string} id - user's id 
@@ -11,7 +15,7 @@ class User {
    * @param {string} login - user's login 
    * @param {string} password - user's password
    */
-  constructor({
+ /*  constructor({
     id = uuidv4(),
     name = 'USER',
     login = 'user',
@@ -21,7 +25,7 @@ class User {
     this.name = name;
     this.login = login;
     this.password = password;
-  }
+  } */
 
   /**
    * 
@@ -44,4 +48,8 @@ class User {
   }
 }
 
-module.exports = User;
+
+
+
+/* module.exports = User; */
+export default {User}

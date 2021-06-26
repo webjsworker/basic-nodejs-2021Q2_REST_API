@@ -1,3 +1,4 @@
+"use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -45,53 +46,83 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
-};
-var _this = this;
-// const Board = require('./boards.model')
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.change = exports.deleteById = exports.creat = exports.getById = exports.getAll = void 0;
 var DBTASK = require('../tasks/tasks.memory.repository');
-var DBBoards = [];
-var getAll = function () { return DBBoards; };
-var getById = function (id) { return __awaiter(_this, void 0, void 0, function () {
-    var board;
+/**
+ * Array of users
+ * @type {Array}
+ */
+var DBUsers = [];
+/**
+ * Function getAll users
+ * @returns array of users.
+ */
+var getAll = function () { return DBUsers; };
+exports.getAll = getAll;
+/**
+ *
+ * @param {string} id - id of user
+ * @returns {object} - user
+ */
+var getById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    var user;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, DBBoards.filter(function (bd) { return bd.id === id; })];
+            case 0: return [4 /*yield*/, DBUsers.filter(function (us) { return us.id === id; })];
             case 1:
-                board = _a.sent();
-                return [2 /*return*/, board[0]];
+                user = _a.sent();
+                return [2 /*return*/, user[0]];
         }
     });
 }); };
-var creat = function (board) { return __awaiter(_this, void 0, void 0, function () {
+exports.getById = getById;
+/**
+ *
+ * @param {object} user - user for create
+ * @returns {object} created user
+ */
+var creat = function (user) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        DBBoards = __spreadArray(__spreadArray([], DBBoards), [board]);
-        return [2 /*return*/, board];
+        DBUsers.push(user);
+        /* DBUsers = [...DBUsers, user] */
+        return [2 /*return*/, user];
     });
 }); };
-var deleteById = function (id) { return __awaiter(_this, void 0, void 0, function () {
+exports.creat = creat;
+/**
+ * function delete user by id
+ * @param {string} id - id of user
+ *
+ */
+var deleteById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, DBBoards.filter(function (bd) { return bd.id !== id; })];
+            case 0: return [4 /*yield*/, DBUsers.filter(function (el) { return el.id !== id; })];
             case 1:
-                DBBoards = _a.sent();
-                DBTASK.deleteTasksBoard(id);
+                _a.sent();
+                DBTASK.deleteUserTasks(id);
                 return [2 /*return*/];
         }
     });
 }); };
-var change = function (id, board) { return __awaiter(_this, void 0, void 0, function () {
+exports.deleteById = deleteById;
+/**
+ * Function chande user by id
+ * @param {string} id - user id
+ * @param {object} user - user data
+ * @param {object} el - elemen og user
+ * @returns {object} changed user
+ */
+var change = function (id, user) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        DBBoards = DBBoards.map(function (obj) {
-            if (obj.id === id) {
-                return __assign({ id: id }, board);
+        DBUsers.map(function (el) {
+            if (el.id === id) {
+                return __assign({ id: id }, user);
             }
-            return obj;
+            return el;
         });
         return [2 /*return*/, getById(id)];
     });
 }); };
-module.exports = { getAll: getAll, getById: getById, creat: creat, deleteById: deleteById, change: change };
+exports.change = change;
